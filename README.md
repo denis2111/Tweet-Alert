@@ -7,7 +7,7 @@
   <li> Lungu Alexandru </li>
 
 <h3>Coordinator:</h3> 
-	<li> Mihaela Breaban </li>
+	<li> Conf. dr. Breaban Mihaela </li>
 
 <h3>Contact information:</h3>
 	<li> albert.ramona99@gmail.com </li>
