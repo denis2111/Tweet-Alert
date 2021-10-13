@@ -14,3 +14,6 @@
 	<li> avram1andrei@gmail.com </li>
 	<li> banudenis99@gmail.com </li>
 	<li> lungualex00@gmail.com </li>
+	
+	
+State of the art: https://www.overleaf.com/project/615c0a7143c12a21ac87b339
