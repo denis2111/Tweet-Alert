@@ -17,3 +17,4 @@
 	
 	
 State of the art: https://www.overleaf.com/4454644824bsgrwfszghgv
+Trello: https://trello.com/disastertweets 
