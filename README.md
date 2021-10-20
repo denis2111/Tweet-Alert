@@ -24,3 +24,5 @@
 
 <p>State of the art: https://www.overleaf.com/4454644824bsgrwfszghgv</p>
 <p>Trello: https://trello.com/disastertweets</p>
+<p>Requirements: https://docs.google.com/document/d/1tj6PDt6hevJm8uTronpwe4ivntxwhMtlO2do5pjflMA/edit?usp=sharing</p>
+<p>Diagrams: https://drive.google.com/file/d/1-4F9pizBoWPs-wXO9OFiDQNYVWm3oe1X/view?usp=sharing</p>
