@@ -32,6 +32,7 @@ services:
     environment:
       - xpack.security.enabled=false
       - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms515m -Xmx515m"
     ulimits:
       memlock:
         soft: -1
@@ -44,7 +45,7 @@ services:
     volumes:
       - es-data:/usr/share/elasticsearch/data
     ports:
-      - 9200:9200
+      - 9200:9200  
   es-kibana:
     container_name: es-kibana
     image: docker.elastic.co/kibana/kibana:7.15.1
