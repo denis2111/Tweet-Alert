@@ -18,10 +18,42 @@ services:
       - "8102:5000"
     volumes:
       - .:/python-flask
+  image-module:
+    build:
+      context: ./image-module
+    command: python main.py
+    ports:
+      - "8103:5000"
+    volumes:
+      - .:/python-flask
   es-main-db:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.15.1
+    container_name: es-main-db
     environment:
-      - cluster.initial_master_nodes=es-main-db
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add: 
+      - IPC_LOCK
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
+  es-kibana:
+    container_name: es-kibana
+    image: docker.elastic.co/kibana/kibana:7.15.1
+    environment:
+      - ELASTICSEARCH_HOSTS=http://es-main-db:9200
+    ports:
+      - 5601:5601
+    depends_on:
+      - es-main-db
+volumes:
+  es-data:
+    driver: local
