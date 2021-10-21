@@ -11,7 +11,7 @@ public class TweetanalyticsApplication {
 
 	@RequestMapping("/")
 	public String home() {
-	  return "This is the Analytics module.";
+	  return "This is the Analytics module :).";
 	}
 	public static void main(String[] args) {
 		SpringApplication.run(TweetanalyticsApplication.class, args);
