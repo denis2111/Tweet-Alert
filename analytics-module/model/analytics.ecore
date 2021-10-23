@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="analytics" nsURI="http://www.example.org/analytics" nsPrefix="analytics">
+  <eSubpackages name="models" nsURI="models" nsPrefix="models">
+    <eClassifiers xsi:type="ecore:EClass" name="Tweet">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//ID"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="image" upperBound="-1"
+          eType="#//models/TweetImage" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//AnySimpleType"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="feedback" upperBound="-1"
+          eType="#//models/Feedback" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="TweetImage">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="image" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//ByteObject"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Feedback">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="thumbsUp" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="tweetId" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//ID"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="User">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//ID"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="username" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="password" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="services" nsURI="services" nsPrefix="services">
+    <eClassifiers xsi:type="ecore:EClass" name="TweetsService" instanceClassName="java.lang.Object">
+      <eOperations name="getTweets" eExceptions="#//exceptions/NotFoundException">
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList">
+          <eTypeArguments/>
+        </eGenericType>
+      </eOperations>
+      <eOperations name="storeTweet">
+        <eParameters name="tweet" eType="#//models/Tweet"/>
+      </eOperations>
+      <eOperations name="getTweeet" eType="#//models/Tweet" eExceptions="#//exceptions/NotFoundException"/>
+      <eOperations name="updateTweetBuId">
+        <eParameters name="tweet" eType="#//models/Tweet"/>
+        <eParameters name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//ID"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="repository" lowerBound="1"
+          eType="#//repositories/TweetsRepository" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="tweet" eType="#//models/Tweet"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FeedbackService">
+      <eOperations name="storeFeedback" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
+      <eOperations name="getFeedback">
+        <eParameters name="tweet" eType="#//dtos/TweetDto"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="feedbackrepository" lowerBound="1"
+          eType="#//repositories/FeedbackRepository" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="feedback" eType="#//models/Feedback"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="UsersService" instanceClassName="java.lang.Object">
+      <eOperations name="findByUsername" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//AnySimpleType"
+          eExceptions="#//exceptions/NotFoundException"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="repository" lowerBound="1"
+          eType="#//repositories/UsersRepository" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="user" eType="#//models/User"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="security" nsURI="security" nsPrefix="security">
+    <eClassifiers xsi:type="ecore:EClass" name="JwtAuthenticationEntryPoint" eSuperTypes="#//security/AuthenticationEntryPoint">
+      <eOperations name="commence">
+        <eParameters name="request" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//AnySimpleType"/>
+        <eParameters name="response" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//AnySimpleType"/>
+        <eParameters name="authenticationException" eType="#//exceptions/Exception"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="serialVersionUId" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Long"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AuthenticationEntryPoint" abstract="true"
+        interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="JwtRequestFilter">
+      <eOperations name="doFilterInternal">
+        <eParameters name="request" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//AnySimpleType"/>
+        <eParameters name="response" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//AnySimpleType"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="jwtuserdetailsservice"
+          eType="#//security/JwtUserDetailsService"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="jwttokenutil" eType="#//security/JwtTokenUtil"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="JwtUserDetailsService" eSuperTypes="#//security/UserDetailsService">
+      <eOperations name="loadUserByUsername" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//AnySimpleType"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="usersservice" lowerBound="1"
+          eType="#//services/UsersService"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="UserDetailsService" abstract="true"
+        interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="JwtTokenUtil">
+      <eOperations name="getUsernameFromToken">
+        <eParameters name="token" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+      </eOperations>
+      <eOperations name="getExpirationDateFromToken">
+        <eParameters name="token" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+      </eOperations>
+      <eOperations name="isTokenExpired">
+        <eParameters name="token" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+      </eOperations>
+      <eOperations name="generateToken" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Token"/>
+      <eOperations name="validateToken">
+        <eParameters name="token" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="serialVersionUID" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//ID"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="JWT_TOKEN_VALIDITY" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Long"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="exceptions" nsURI="exceptions" nsPrefix="exceptions">
+    <eClassifiers xsi:type="ecore:EClass" name="ControllerAdvice">
+      <eOperations name="handleNotFoundException" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//ENTITY">
+        <eParameters name="notFoundException" eType="#//exceptions/NotFoundException"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="notFoundException" eType="#//exceptions/NotFoundException"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="badRequestException"
+          eType="#//exceptions/BadRequestException"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="internalErrorException"
+          eType="#//exceptions/InternalErrorException"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="NotFoundException" eSuperTypes="#//exceptions/Exception"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Exception"/>
+    <eClassifiers xsi:type="ecore:EClass" name="BadRequestException" eSuperTypes="#//exceptions/Exception"/>
+    <eClassifiers xsi:type="ecore:EClass" name="InternalErrorException" eSuperTypes="#//exceptions/Exception"/>
+  </eSubpackages>
+  <eSubpackages name="repositories" nsURI="repositories" nsPrefix="repositories">
+    <eClassifiers xsi:type="ecore:EClass" name="TweetsRepository" instanceClassName="java.lang.Object"
+        abstract="true" interface="true" eSuperTypes="#//repositories/JpaRepository"/>
+    <eClassifiers xsi:type="ecore:EClass" name="FeedbackRepository" abstract="true"
+        interface="true" eSuperTypes="#//repositories/JpaRepository"/>
+    <eClassifiers xsi:type="ecore:EClass" name="JpaRepository" abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="UsersRepository" instanceClassName="java.lang.Object"
+        abstract="true" interface="true" eSuperTypes="#//repositories/JpaRepository"/>
+  </eSubpackages>
+  <eSubpackages name="dtos" nsURI="dtos" nsPrefix="dtos">
+    <eClassifiers xsi:type="ecore:EClass" name="TweetDto">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="feedbackDto" upperBound="-1"
+          eType="#//dtos/FeedbackDto" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="UID" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//ID"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="verdict" eType="#//dtos/Verdict"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="compressedImage" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Byte"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FeedbackDto">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="thumbsUp" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="tweetId" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//ID"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="PredictionType">
+      <eLiterals name="CYCLONE"/>
+      <eLiterals name="FLOOD" value="1"/>
+      <eLiterals name="EARTHQUAKE" value="2"/>
+      <eLiterals name="WILDFIRE" value="3"/>
+      <eLiterals name="NO_DISASTER" value="4"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Verdict">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="predictionType" eType="#//dtos/PredictionType"
+          defaultValueLiteral="NO_DISASTER"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="controllers" nsURI="controllers" nsPrefix="controllers">
+    <eClassifiers xsi:type="ecore:EClass" name="TweetsController" instanceTypeName="TweetsController">
+      <eOperations name="getTweets" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"
+          eExceptions="#//exceptions/NotFoundException"/>
+      <eOperations name="getTweet" eType="#//dtos/TweetDto" eExceptions="#//exceptions/NotFoundException"/>
+      <eOperations name="storeTweet" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
+        <eParameters name="tweet" eType="#//dtos/TweetDto"/>
+      </eOperations>
+      <eOperations name="updateTweetBuId" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
+        <eParameters name="tweet" eType="#//dtos/TweetDto"/>
+        <eParameters name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//ID"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="service" lowerBound="1"
+          eType="#//services/TweetsService" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="tweetdto" eType="#//dtos/TweetDto"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FeedbackController" instanceTypeName="FeedbaclController">
+      <eOperations name="storeFeedback" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
+      <eOperations name="getFeedback">
+        <eParameters name="tweet" eType="#//dtos/TweetDto"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="service" lowerBound="1"
+          eType="#//services/FeedbackService" containment="true"/>
+    </eClassifiers>
+  </eSubpackages>
+</ecore:EPackage>

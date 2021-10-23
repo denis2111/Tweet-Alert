@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/Analytics/src-gen" creationIcons="false" editDirectory="/Analytics.edit/src-gen"
+    editorDirectory="/Analytics.editor/src-gen" modelPluginID="Analytics" modelName="Analytics"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" codeFormatting="true"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    usedGenPackages="#//analytics/models" operationReflection="true" importOrganizing="true">
+  <foreignModel>analytics.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="Analytics" disposableProviderFactory="true" ecorePackage="analytics.ecore#/">
+    <nestedGenPackages prefix="modelss" disposableProviderFactory="true" ecorePackage="analytics.ecore#//models">
+      <genClasses ecoreClass="analytics.ecore#//models/Tweet">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//models/Tweet/id"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//models/Tweet/text"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analytics.ecore#//models/Tweet/image"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//models/Tweet/location"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analytics.ecore#//models/Tweet/feedback"/>
+      </genClasses>
+      <genClasses ecoreClass="analytics.ecore#//models/TweetImage">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//models/TweetImage/image"/>
+      </genClasses>
+      <genClasses ecoreClass="analytics.ecore#//models/Feedback">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//models/Feedback/thumbsUp"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//models/Feedback/tweetId"/>
+      </genClasses>
+      <genClasses ecoreClass="analytics.ecore#//models/User">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//models/User/id"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//models/User/username"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//models/User/password"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="services" disposableProviderFactory="true" ecorePackage="analytics.ecore#//services">
+      <genClasses ecoreClass="analytics.ecore#//services/TweetsService">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analytics.ecore#//services/TweetsService/repository"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analytics.ecore#//services/TweetsService/tweet"/>
+        <genOperations ecoreOperation="analytics.ecore#//services/TweetsService/getTweets"/>
+        <genOperations ecoreOperation="analytics.ecore#//services/TweetsService/storeTweet">
+          <genParameters ecoreParameter="analytics.ecore#//services/TweetsService/storeTweet/tweet"/>
+        </genOperations>
+        <genOperations ecoreOperation="analytics.ecore#//services/TweetsService/getTweeet"/>
+        <genOperations ecoreOperation="analytics.ecore#//services/TweetsService/updateTweetBuId">
+          <genParameters ecoreParameter="analytics.ecore#//services/TweetsService/updateTweetBuId/tweet"/>
+          <genParameters ecoreParameter="analytics.ecore#//services/TweetsService/updateTweetBuId/id"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="analytics.ecore#//services/FeedbackService">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analytics.ecore#//services/FeedbackService/feedbackrepository"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analytics.ecore#//services/FeedbackService/feedback"/>
+        <genOperations ecoreOperation="analytics.ecore#//services/FeedbackService/storeFeedback"/>
+        <genOperations ecoreOperation="analytics.ecore#//services/FeedbackService/getFeedback">
+          <genParameters ecoreParameter="analytics.ecore#//services/FeedbackService/getFeedback/tweet"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="analytics.ecore#//services/UsersService">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analytics.ecore#//services/UsersService/repository"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analytics.ecore#//services/UsersService/user"/>
+        <genOperations ecoreOperation="analytics.ecore#//services/UsersService/findByUsername"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="security" disposableProviderFactory="true" ecorePackage="analytics.ecore#//security">
+      <genClasses ecoreClass="analytics.ecore#//security/JwtAuthenticationEntryPoint">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//security/JwtAuthenticationEntryPoint/serialVersionUId"/>
+        <genOperations ecoreOperation="analytics.ecore#//security/JwtAuthenticationEntryPoint/commence">
+          <genParameters ecoreParameter="analytics.ecore#//security/JwtAuthenticationEntryPoint/commence/request"/>
+          <genParameters ecoreParameter="analytics.ecore#//security/JwtAuthenticationEntryPoint/commence/response"/>
+          <genParameters ecoreParameter="analytics.ecore#//security/JwtAuthenticationEntryPoint/commence/authenticationException"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="analytics.ecore#//security/AuthenticationEntryPoint"/>
+      <genClasses ecoreClass="analytics.ecore#//security/JwtRequestFilter">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analytics.ecore#//security/JwtRequestFilter/jwtuserdetailsservice"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analytics.ecore#//security/JwtRequestFilter/jwttokenutil"/>
+        <genOperations ecoreOperation="analytics.ecore#//security/JwtRequestFilter/doFilterInternal">
+          <genParameters ecoreParameter="analytics.ecore#//security/JwtRequestFilter/doFilterInternal/request"/>
+          <genParameters ecoreParameter="analytics.ecore#//security/JwtRequestFilter/doFilterInternal/response"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="analytics.ecore#//security/JwtUserDetailsService">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analytics.ecore#//security/JwtUserDetailsService/usersservice"/>
+        <genOperations ecoreOperation="analytics.ecore#//security/JwtUserDetailsService/loadUserByUsername"/>
+      </genClasses>
+      <genClasses ecoreClass="analytics.ecore#//security/UserDetailsService"/>
+      <genClasses ecoreClass="analytics.ecore#//security/JwtTokenUtil">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//security/JwtTokenUtil/serialVersionUID"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//security/JwtTokenUtil/JWT_TOKEN_VALIDITY"/>
+        <genOperations ecoreOperation="analytics.ecore#//security/JwtTokenUtil/getUsernameFromToken">
+          <genParameters ecoreParameter="analytics.ecore#//security/JwtTokenUtil/getUsernameFromToken/token"/>
+        </genOperations>
+        <genOperations ecoreOperation="analytics.ecore#//security/JwtTokenUtil/getExpirationDateFromToken">
+          <genParameters ecoreParameter="analytics.ecore#//security/JwtTokenUtil/getExpirationDateFromToken/token"/>
+        </genOperations>
+        <genOperations ecoreOperation="analytics.ecore#//security/JwtTokenUtil/isTokenExpired">
+          <genParameters ecoreParameter="analytics.ecore#//security/JwtTokenUtil/isTokenExpired/token"/>
+        </genOperations>
+        <genOperations ecoreOperation="analytics.ecore#//security/JwtTokenUtil/generateToken"/>
+        <genOperations ecoreOperation="analytics.ecore#//security/JwtTokenUtil/validateToken">
+          <genParameters ecoreParameter="analytics.ecore#//security/JwtTokenUtil/validateToken/token"/>
+        </genOperations>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="exceptions" disposableProviderFactory="true" ecorePackage="analytics.ecore#//exceptions">
+      <genClasses ecoreClass="analytics.ecore#//exceptions/ControllerAdvice">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analytics.ecore#//exceptions/ControllerAdvice/notFoundException"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analytics.ecore#//exceptions/ControllerAdvice/badRequestException"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analytics.ecore#//exceptions/ControllerAdvice/internalErrorException"/>
+        <genOperations ecoreOperation="analytics.ecore#//exceptions/ControllerAdvice/handleNotFoundException">
+          <genParameters ecoreParameter="analytics.ecore#//exceptions/ControllerAdvice/handleNotFoundException/notFoundException"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="analytics.ecore#//exceptions/NotFoundException"/>
+      <genClasses ecoreClass="analytics.ecore#//exceptions/Exception"/>
+      <genClasses ecoreClass="analytics.ecore#//exceptions/BadRequestException"/>
+      <genClasses ecoreClass="analytics.ecore#//exceptions/InternalErrorException"/>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="repositories" disposableProviderFactory="true" ecorePackage="analytics.ecore#//repositories">
+      <genClasses ecoreClass="analytics.ecore#//repositories/TweetsRepository"/>
+      <genClasses ecoreClass="analytics.ecore#//repositories/FeedbackRepository"/>
+      <genClasses ecoreClass="analytics.ecore#//repositories/JpaRepository"/>
+      <genClasses image="false" ecoreClass="analytics.ecore#//repositories/UsersRepository"/>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="dtos" disposableProviderFactory="true" ecorePackage="analytics.ecore#//dtos">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="analytics.ecore#//dtos/PredictionType">
+        <genEnumLiterals ecoreEnumLiteral="analytics.ecore#//dtos/PredictionType/CYCLONE"/>
+        <genEnumLiterals ecoreEnumLiteral="analytics.ecore#//dtos/PredictionType/FLOOD"/>
+        <genEnumLiterals ecoreEnumLiteral="analytics.ecore#//dtos/PredictionType/EARTHQUAKE"/>
+        <genEnumLiterals ecoreEnumLiteral="analytics.ecore#//dtos/PredictionType/WILDFIRE"/>
+        <genEnumLiterals ecoreEnumLiteral="analytics.ecore#//dtos/PredictionType/NO_DISASTER"/>
+      </genEnums>
+      <genClasses ecoreClass="analytics.ecore#//dtos/TweetDto">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analytics.ecore#//dtos/TweetDto/feedbackDto"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//dtos/TweetDto/text"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//dtos/TweetDto/UID"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analytics.ecore#//dtos/TweetDto/verdict"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//dtos/TweetDto/compressedImage"/>
+      </genClasses>
+      <genClasses ecoreClass="analytics.ecore#//dtos/FeedbackDto">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//dtos/FeedbackDto/thumbsUp"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//dtos/FeedbackDto/tweetId"/>
+      </genClasses>
+      <genClasses ecoreClass="analytics.ecore#//dtos/Verdict">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analytics.ecore#//dtos/Verdict/predictionType"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="controllers" disposableProviderFactory="true" ecorePackage="analytics.ecore#//controllers">
+      <genClasses ecoreClass="analytics.ecore#//controllers/TweetsController">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analytics.ecore#//controllers/TweetsController/service"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analytics.ecore#//controllers/TweetsController/tweetdto"/>
+        <genOperations ecoreOperation="analytics.ecore#//controllers/TweetsController/getTweets"/>
+        <genOperations ecoreOperation="analytics.ecore#//controllers/TweetsController/getTweet"/>
+        <genOperations ecoreOperation="analytics.ecore#//controllers/TweetsController/storeTweet">
+          <genParameters ecoreParameter="analytics.ecore#//controllers/TweetsController/storeTweet/tweet"/>
+        </genOperations>
+        <genOperations ecoreOperation="analytics.ecore#//controllers/TweetsController/updateTweetBuId">
+          <genParameters ecoreParameter="analytics.ecore#//controllers/TweetsController/updateTweetBuId/tweet"/>
+          <genParameters ecoreParameter="analytics.ecore#//controllers/TweetsController/updateTweetBuId/id"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="analytics.ecore#//controllers/FeedbackController">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analytics.ecore#//controllers/FeedbackController/service"/>
+        <genOperations ecoreOperation="analytics.ecore#//controllers/FeedbackController/storeFeedback"/>
+        <genOperations ecoreOperation="analytics.ecore#//controllers/FeedbackController/getFeedback">
+          <genParameters ecoreParameter="analytics.ecore#//controllers/FeedbackController/getFeedback/tweet"/>
+        </genOperations>
+      </genClasses>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>
