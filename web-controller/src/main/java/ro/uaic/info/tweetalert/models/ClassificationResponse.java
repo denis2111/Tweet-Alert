@@ -1,11 +1,9 @@
 package ro.uaic.info.tweetalert.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
-public class ClassificationResponse {
+public class ClassificationResponse implements Response{
     DisasterType classificationLabel;
     float precision;
 }
