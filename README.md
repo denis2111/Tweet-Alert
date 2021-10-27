@@ -34,8 +34,8 @@ Design Patterns:
 * Singleton for [AnalyticsClient](https://github.com/denis2111/Tweet-Alert/blob/main/web-controller/src/main/java/ro/uaic/info/tweetalert/AnalyticsClient.java), [NLPClassifierClient](https://github.com/denis2111/Tweet-Alert/blob/main/web-controller/src/main/java/ro/uaic/info/tweetalert/NLPClassifierClient.java), [ImageClassifierClient](https://github.com/denis2111/Tweet-Alert/blob/main/web-controller/src/main/java/ro/uaic/info/tweetalert/ImageClassifierClient.java) (Creational) (Denis + Alex)
 * Iterator for tokens (Behavioral) (Andrei)
 * State (Behavioral) (Andrei)
-* Facade for Repository from Analytics (Structural) (Ramona)
-* Chain of Responsibility for Analytics (Behavioral) -  an n-layered architecture for Analytics Module (Ramona)
+* Facade for [Repository from Analytics](https://github.com/denis2111/Tweet-Alert/blob/main/analytics-module/src/main/java/ro/uaic/info/analytics/repositories/JpaRepository.java#L17) (Structural) (Ramona)
+* Chain of [Responsibility for Analytics](https://github.com/denis2111/Tweet-Alert/blob/main/analytics-module/src/main/java/ro/uaic/info/analytics/exceptions/ControllerAdvice.java) (Behavioral) -  an n-layered architecture for Analytics Module (Ramona)
 
 EMF:
 * Ramona, Alex - Analytics EMF diagram -  generated code on github
