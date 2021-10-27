@@ -27,16 +27,16 @@
 <p>Requirements: https://docs.google.com/document/d/1tj6PDt6hevJm8uTronpwe4ivntxwhMtlO2do5pjflMA/edit?usp=sharing</p>
 <p>Diagrams: https://drive.google.com/file/d/1-4F9pizBoWPs-wXO9OFiDQNYVWm3oe1X/view?usp=sharing</p>
 
-Design Patterns:
-* [Builder](https://github.com/denis2111/Tweet-Alert/blob/main/web-controller/src/main/java/ro/uaic/info/tweetalert/models/ResponseBuilder.java) for response (Creational) (Denis + Alex)
-* Template for [ClassifierClient](https://github.com/denis2111/Tweet-Alert/blob/main/web-controller/src/main/java/ro/uaic/info/tweetalert/ClassifierClient.java) (Behavioral) (Denis + Alex)
-* Decorator for [LocalizedReponse](https://github.com/denis2111/Tweet-Alert/blob/main/web-controller/src/main/java/ro/uaic/info/tweetalert/models/LocalizedResponse.java) (Structural) (Denis + Alex)
-* Singleton for [AnalyticsClient](https://github.com/denis2111/Tweet-Alert/blob/main/web-controller/src/main/java/ro/uaic/info/tweetalert/AnalyticsClient.java), [NLPClassifierClient](https://github.com/denis2111/Tweet-Alert/blob/main/web-controller/src/main/java/ro/uaic/info/tweetalert/NLPClassifierClient.java), [ImageClassifierClient](https://github.com/denis2111/Tweet-Alert/blob/main/web-controller/src/main/java/ro/uaic/info/tweetalert/ImageClassifierClient.java) (Creational) (Denis + Alex)
-* Iterator for tokens (Behavioral) (Andrei)
-* State (Behavioral) (Andrei)
-* Facade for [Repository from Analytics](https://github.com/denis2111/Tweet-Alert/blob/main/analytics-module/src/main/java/ro/uaic/info/analytics/repositories/JpaRepository.java#L17) (Structural) (Ramona)
-* Chain of [Responsibility for Analytics](https://github.com/denis2111/Tweet-Alert/blob/main/analytics-module/src/main/java/ro/uaic/info/analytics/exceptions/ControllerAdvice.java) (Behavioral) -  an n-layered architecture for Analytics Module (Ramona)
+<b>Design Patterns</b>:
+* <b>[Builder](https://github.com/denis2111/Tweet-Alert/blob/main/web-controller/src/main/java/ro/uaic/info/tweetalert/models/ResponseBuilder.java)</b>(Creational) for response (Denis + Alex)
+* <b>Template</b>(Behavioral) for [ClassifierClient](https://github.com/denis2111/Tweet-Alert/blob/main/web-controller/src/main/java/ro/uaic/info/tweetalert/ClassifierClient.java) (Denis + Alex)
+* <b>Decorator</b>(Structural) for [LocalizedReponse](https://github.com/denis2111/Tweet-Alert/blob/main/web-controller/src/main/java/ro/uaic/info/tweetalert/models/LocalizedResponse.java) (Denis + Alex)
+* <b>Singleton</b>(Creational) for [AnalyticsClient](https://github.com/denis2111/Tweet-Alert/blob/main/web-controller/src/main/java/ro/uaic/info/tweetalert/AnalyticsClient.java), [NLPClassifierClient](https://github.com/denis2111/Tweet-Alert/blob/main/web-controller/src/main/java/ro/uaic/info/tweetalert/NLPClassifierClient.java), [ImageClassifierClient](https://github.com/denis2111/Tweet-Alert/blob/main/web-controller/src/main/java/ro/uaic/info/tweetalert/ImageClassifierClient.java) (Denis + Alex)
+* <b>Iterator</b>(Behavioral) for [TokensCollection](https://github.com/denis2111/Tweet-Alert/blob/main/nlp-module/tokenizer_component/tokens_collection.py) in NLP module (Andrei)
+* <b>State</b>(Behavioral) for [Tokenizer](https://github.com/denis2111/Tweet-Alert/blob/main/nlp-module/tokenizer_component/tokenizer.py) in NLP module (Andrei)
+* <b>Facade</b>(Structural) for [Repository from Analytics](https://github.com/denis2111/Tweet-Alert/blob/main/analytics-module/src/main/java/ro/uaic/info/analytics/repositories/JpaRepository.java#L17) (Ramona)
+* <b>Chain of Responsibility</b>(Behavioral)  for [Analytics](https://github.com/denis2111/Tweet-Alert/blob/main/analytics-module/src/main/java/ro/uaic/info/analytics/exceptions/ControllerAdvice.java) - an n-layered architecture for Analytics Module (Ramona)
 
-EMF:
-* Ramona, Alex - [Analytics EMF diagram](https://github.com/denis2111/Tweet-Alert/blob/main/analytics-module/images/analytics.jpg) -  generated code on github
-* Andrei, Denis - [WebController EMF diagram](https://github.com/denis2111/Tweet-Alert/blob/main/web-controller-diagram/WebControllerDiagram.jpg) -  generated code on github
+<b>EMF</b>:
+* Ramona, Alex - Analytics EMF diagram -  generated code on github
+* Andrei, Denis - WebController EMF diagram -  generated code on github
