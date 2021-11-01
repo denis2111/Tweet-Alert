@@ -9,7 +9,7 @@ public class ResponseBuilder {
         return this;
     }
 
-    public Response build(){
+    public ClassifyResponse build(){
         return null;
     }
 }
