@@ -4,9 +4,6 @@
   "name": "Tweet Alert",
   "description": "Identify and classify disaster tweets",
   "version": "1.0",
-  "background": {
-    "service_worker": "background.js"
-  },
   "content_scripts": [{
     "js": ["home.js"],
     "matches": ["https://twitter.com/*"]
