@@ -2,12 +2,11 @@ package ro.uaic.info.tweetalert;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ro.uaic.info.tweetalert.models.ClassificationRes;
+import org.springframework.web.bind.annotation.*;
+import ro.uaic.info.tweetalert.models.ClassifyResponse;
+import ro.uaic.info.tweetalert.models.LocalizedResponse;
 import ro.uaic.info.tweetalert.models.TweetReq;
 import ro.uaic.info.tweetalert.services.WebService;
 
@@ -28,8 +27,8 @@ public class TweetalertApplication {
     return "This is the Web Controller.";
   }
 
-  @PostMapping("/classify")
-  public ResponseEntity<ClassificationRes> classify(@Valid @RequestBody TweetReq tweetReq) {
+  @GetMapping("/classify")
+  public ResponseEntity<LocalizedResponse> classify(@Valid @RequestBody TweetReq tweetReq) {
     return webService.classify(tweetReq);
   }
 
