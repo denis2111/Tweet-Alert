@@ -37,7 +37,7 @@
 * <b>Facade</b>(Structural) for [Repository from Analytics](https://github.com/denis2111/Tweet-Alert/blob/main/analytics-module/src/main/java/ro/uaic/info/analytics/repositories/JpaRepository.java#L17) (Ramona)
 * <b>Chain of Responsibility</b>(Behavioral)  for [Analytics](https://github.com/denis2111/Tweet-Alert/blob/main/analytics-module/src/main/java/ro/uaic/info/analytics/exceptions/ControllerAdvice.java) - an n-layered architecture for Analytics Module (Ramona)
 
-<b>EMF</b>:
+<b>EMF</b>: (see [doc folder](https://github.com/denis2111/Tweet-Alert/tree/main/doc))
 * Ramona, Alex - Analytics EMF diagram -  generated code on github
 * Andrei, Denis - WebController EMF diagram -  generated code on github
 
