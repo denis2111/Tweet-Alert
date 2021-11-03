@@ -40,3 +40,11 @@
 <b>EMF</b>:
 * Ramona, Alex - Analytics EMF diagram -  generated code on github
 * Andrei, Denis - WebController EMF diagram -  generated code on github
+
+<b>MDD/TDD iterations</b>
+ * Ramona, Alex - Analytics 2 more detailed diagrams for 2 MDD iterations. Code generated on github + implemented some functionalities
+ * Andrei, Denis - WebController 2 TDD iterations 
+
+<b>BPMN</b>
+ * Ramona, Alex -based on feedback process
+ * Andrei, Denis - based on NLP module
