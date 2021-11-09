@@ -23,7 +23,7 @@ public class WebServiceTest {
     @Test
     public void WebServiceShouldReturnAnWellFormattedResponse(){
         String tweetText = "This is the text.";
-        String tweetImage = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fif-koubou.com%2Farticles%2Fhow-to%2Fwhat-is-a-url-uniform-resource-locator.html&psig=AOvVaw0EwnOCbgtJoY9EJc5zsaIl&ust=1635879427115000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCKiuuvTr9_MCFQAAAAAdAAAAABAD";
+        String tweetImage = "https://play-lh.googleusercontent.com/aFWiT2lTa9CYBpyPjfgfNHd0r5puwKRGj2rHpdPTNrz2N9LXgN_MbLjePd1OTc0E8Rl1";
 
         TweetReq tweetReq = new TweetReq(tweetText, tweetImage);
         ResponseEntity<LocalizedResponse> classifyRes = service.classify(tweetReq);
@@ -48,7 +48,7 @@ public class WebServiceTest {
     @Test
     public void WebServiceShouldThrowAnExceptionIfTextIsNullOrEmpty(){
         String tweetText = "";
-        String tweetImage = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fif-koubou.com%2Farticles%2Fhow-to%2Fwhat-is-a-url-uniform-resource-locator.html&psig=AOvVaw0EwnOCbgtJoY9EJc5zsaIl&ust=1635879427115000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCKiuuvTr9_MCFQAAAAAdAAAAABAD";
+        String tweetImage = "https://play-lh.googleusercontent.com/aFWiT2lTa9CYBpyPjfgfNHd0r5puwKRGj2rHpdPTNrz2N9LXgN_MbLjePd1OTc0E8Rl1";
 
         TweetReq tweetReq = new TweetReq(tweetText, tweetImage);
         ResponseEntity<LocalizedResponse> classifyRes = service.classify(tweetReq);

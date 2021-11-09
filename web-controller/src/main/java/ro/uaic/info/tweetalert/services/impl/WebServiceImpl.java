@@ -23,9 +23,15 @@ public class WebServiceImpl implements WebService {
 
     @Override
     public ResponseEntity<LocalizedResponse> classify(TweetReq tweetReq) {
+        LocalizedResponse localizedResponseNLP;
+        LocalizedResponse localizedResponseImage;
         try {
-            LocalizedResponse localizedResponse = nlpClassifierClient.classify(tweetReq);
-            return new ResponseEntity<>(localizedResponse, HttpStatus.OK);
+            localizedResponseNLP = nlpClassifierClient.classify(tweetReq);
+            if (tweetReq.getImage() != null && tweetReq.getImage().equals("")) {
+                localizedResponseImage = imageClassifierClient.classify(tweetReq);
+                return new ResponseEntity<>(localizedResponseImage, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(localizedResponseNLP, HttpStatus.OK);
         } catch (HttpClientErrorException.BadRequest e){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }

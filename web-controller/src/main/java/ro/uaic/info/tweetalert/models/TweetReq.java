@@ -12,7 +12,7 @@ import static ro.uaic.info.tweetalert.utils.ValidationParameters.*;
 @AllArgsConstructor
 public class TweetReq {
     @NotNull (message = WRONG_TWEET_TEXT_MESSAGE)
-    @Size (max = MAX_TEXT_SIZE, message = WRONG_TWEET_TEXT_SIZE_MESSAGE)
+    @Size (max = MAX_TEXT_SIZE, min = 1, message = WRONG_TWEET_TEXT_SIZE_MESSAGE)
     private final String text;
 
     private final String image;
