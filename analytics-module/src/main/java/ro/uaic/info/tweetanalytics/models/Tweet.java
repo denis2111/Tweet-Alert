@@ -10,6 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 
+import java.util.Collection;
 import java.util.List;
 
 @ApiModel(description = "All details about the Subject ")
@@ -30,11 +31,42 @@ public class Tweet {
 
     @ApiModelProperty(notes = "The feedback for a tweet")
     @Field
-    @JsonIgnore
     private List<Feedback> feedbackList;
 
 
     public Tweet(@NonNull String text) {
         this.text = text;
     }
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public String getText() {
+		return text;
+	}
+
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+
+	public List<Feedback> getFeedbackList() {
+		return feedbackList;
+	}
+
+
+	public void setFeedbackList(List<Feedback> feedbackList) {
+		this.feedbackList = feedbackList;
+	}
+
+
 }
