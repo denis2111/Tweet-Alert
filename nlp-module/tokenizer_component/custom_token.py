@@ -1,21 +1,16 @@
-from enum import Enum
-
-
-class TokenType(Enum):
-    COMPOSED = 1
-    SIMPLE = 0
+class TokenType:
+    composed = "COMPOSED"
+    simple = "SIMPLE"
+    punctuation_mark = "PUNCTUATION_MARK"
 
 
 class Token:
-    def __init__(self, token_type: TokenType, is_punctuation_mark: bool) -> None:
+    def __init__(self, token_type: TokenType, token_text: str) -> None:
         self._token_type = token_type
-        self._is_punctuation_mark = is_punctuation_mark
+        self._token_text = token_text
 
-    def __str__(self):
-        return f"{self._token_type} + {self._is_punctuation_mark}"
+    def __str__(self) -> str:
+        return f"{self._token_type} + {self._token_text}"
 
-    def get_token_type(self) -> TokenType:
-        return self._token_type
-
-    def get_is_punctuation_mark(self) -> bool:
-        return self._is_punctuation_mark
+    def get_token(self) -> (TokenType, str):
+        return self._token_type, self._token_text
