@@ -24,7 +24,7 @@ public class TweetsService {
         this.repository = tweetsRepository;
     }
 
-    public List<Tweet> getAllSubjects() {
+    public List<Tweet> getAllTweets() {
         Iterator<Tweet> iterator = repository.findAll().iterator();
         List<Tweet> tweets = new ArrayList<>();
         while (iterator.hasNext()) {

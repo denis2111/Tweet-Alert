@@ -12,9 +12,6 @@ import org.springframework.data.elasticsearch.annotations.Field;
 
 
 @ApiModel(description = "All details about the feedback ")
-@Getter
-@Setter
-@NoArgsConstructor
 @Document(indexName="order")
 public class Feedback {
     @ApiModelProperty(notes = "The id of feedback - unique")
@@ -29,16 +26,36 @@ public class Feedback {
     @ApiModelProperty(notes = "The tweet it belongs to")
     @JsonIgnore
     @Field
-    private Tweet tweet;
+    private int tweetId;
 
 
-    public Feedback(String text, Tweet tweet) {
+    public Feedback(String text, int tweetId) {
         this.text = text;
-        this.tweet = tweet;
+        this.tweetId = tweetId;
     }
 
-    public Feedback(String text) {
-        this.text = text;
-    }
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public int getTweetId() {
+		return tweetId;
+	}
+
+	public void setTweetId(int tweetId) {
+		this.tweetId = tweetId;
+	}
 
 }

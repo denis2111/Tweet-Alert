@@ -41,9 +41,9 @@ public class TweetsController {
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public List<Tweet> getSubjects() {
-        List<Tweet> questions = tweetsService.getAllSubjects();
-        logger.info("Get all the subjects");
-        return questions;
+        List<Tweet> tweets = tweetsService.getAllTweets();
+        logger.info("Get all the tweets");
+        return tweets;
     }
 
     @ApiOperation(value = "View a tweet with a specific id", response = Tweet.class)
@@ -124,7 +124,7 @@ public class TweetsController {
 
     @GetMapping(value = "/{id}/feedback/{id1}")
     @ResponseStatus(value = HttpStatus.OK)
-    public FeedbackDTO getQuestion(@PathVariable int id, @PathVariable int id1) throws NotFoundException {
+    public FeedbackDTO getFeedback(@PathVariable int id, @PathVariable int id1) throws NotFoundException {
         Tweet tweet = tweetsService.getTweetById(id);
         for (Feedback feedback : tweet.getFeedbackList()){
             if (feedback.getId() == id1) {
@@ -148,7 +148,7 @@ public class TweetsController {
         List<Feedback> feedbackList1 = new ArrayList<>();
         feedbackList.stream().forEach(x -> feedbackList1.add(modelMapper.map(x, Feedback.class)));
         feedbackList1.stream()
-                .forEach(x -> x.setTweet(tweet));
+                .forEach(x -> x.setTweetId(tweet.getId()));
         tweet.getFeedbackList().addAll(feedbackList1);
         logger.info("Create new questions for subject " + id);
         return tweetsService.updateById(tweet).getFeedbackList();
@@ -175,7 +175,7 @@ public class TweetsController {
 
     @DeleteMapping(value = "/{id}/feedback/{id1}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public ResponseEntity<?> deleteQuestion(@PathVariable("id") int id,
+    public ResponseEntity<?> deleteFeedback(@PathVariable("id") int id,
                                             @PathVariable("id1") int id1
 //                                            @RequestHeader(name = "Authorization") String token
     ) {
