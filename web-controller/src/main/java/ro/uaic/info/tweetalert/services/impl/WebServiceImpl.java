@@ -27,7 +27,7 @@ public class WebServiceImpl implements WebService {
         LocalizedResponse localizedResponseImage;
         try {
             localizedResponseNLP = nlpClassifierClient.classify(tweetReq);
-            if (tweetReq.getImage() != null && tweetReq.getImage().equals("")) {
+            if (tweetReq.getImage() != null && !tweetReq.getImage().equals("")) {
                 localizedResponseImage = imageClassifierClient.classify(tweetReq);
                 return new ResponseEntity<>(localizedResponseImage, HttpStatus.OK);
             }
