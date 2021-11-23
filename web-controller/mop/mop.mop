@@ -1,0 +1,13 @@
+package ro.uaic.info.tweetalert.aop;
+
+import java.io.*;
+import java.util.*;
+suffix TweetClient() {
+        event controller before() : call(* ro.uaic.info.tweetalert.TweetalertApplication.*(..)) {}
+
+        cfg : S -> controller
+@match {
+        System.err.println("Am apelat controller");
+        __RESET;
+        }
+}

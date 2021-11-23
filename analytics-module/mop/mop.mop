@@ -1,0 +1,18 @@
+package mop;
+
+import java.io.*;
+import java.util.*;
+suffix TweetRepository() {
+        event controller before() : call(* TweetsController.*(..)) {}
+        event TweetService before() : call(* TweetService.*(..)) {}
+        event FeedbackService before() : call(* FeedbackService.*(..)) {}
+        event TweetRepository before() : call(* TweetRepository.*(..)) {}
+        event FeedbackRepository before() : call(* FeedbackRepository.*(..)) {}
+
+        RF : S -> controller (TweetService+ TweetRepository) || (FeedbackService+ FeedbackRepository)
+@fail {
+        System.err.println("A tweet service called without calling the controller.");
+        System.err.println("A tweet repository called without calling the service.");
+        __RESET;
+        }
+}
