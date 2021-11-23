@@ -10,7 +10,7 @@ public class LocalizedResponse implements ClassifyResponse{
 
     public LocalizedResponse(JSONObject object){
         String label = object.getString("label");
-        Float precision = object.getFloat("precision");
+        float precision = object.getFloat("precision");
         classificationResponse = new ClassificationResponse(DisasterType.valueOf(label), precision);
         location = "";
     }
