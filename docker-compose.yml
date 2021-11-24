@@ -3,13 +3,24 @@ services:
   web-controller:
     build:
       context: ./web-controller
+    environment:
+      - IMAGE_MODULE_HOST=http://image-module:5000
+      - ANALYTICS_MODULE_HOST=http://analytics-module:8080
     ports:
       - "8100:8080"
+    networks:
+      - tweetnet
   analytics-module:
     build:
       context: ./analytics-module
+    links:
+        - elasticsearch
+    depends_on:
+        - elasticsearch
     ports:
       - "8101:8080"
+    networks:
+      - tweetnet
   nlp-module:
     build:
       context: ./nlp-module
@@ -18,6 +29,8 @@ services:
       - "8102:5000"
     volumes:
       - .:/python-flask
+    networks:
+      - tweetnet
   image-module:
     build:
       context: ./image-module
@@ -26,13 +39,16 @@ services:
       - "8103:5000"
     volumes:
       - .:/python-flask
-  es-main-db:
+    networks:
+      - tweetnet
+  elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.15.1
-    container_name: es-main-db
+    container_name: elasticsearch
     environment:
       - xpack.security.enabled=false
       - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms515m -Xmx515m"
+      - cluster.name=docker-cluster
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
     ulimits:
       memlock:
         soft: -1
@@ -46,15 +62,22 @@ services:
       - es-data:/usr/share/elasticsearch/data
     ports:
       - 9200:9200  
+    networks:
+      - tweetnet
   es-kibana:
     container_name: es-kibana
     image: docker.elastic.co/kibana/kibana:7.15.1
     environment:
-      - ELASTICSEARCH_HOSTS=http://es-main-db:9200
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
     ports:
       - 5601:5601
     depends_on:
-      - es-main-db
+      - elasticsearch
+    networks:
+      - tweetnet
 volumes:
   es-data:
     driver: local
+networks:
+  tweetnet:
+    external: true

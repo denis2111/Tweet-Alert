@@ -1,5 +1,9 @@
 package ro.uaic.info.tweetanalytics;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import org.elasticsearch.common.collect.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.ApplicationRunner;
@@ -17,7 +21,15 @@ import ro.uaic.info.tweetanalytics.repositories.TweetsRepository;
 public class TweetanalyticsApplication {
 
 	public static void main(String[] args) {
-
+	   
+	   ClassLoader loader = Thread.currentThread().getContextClassLoader();
+	   Properties properties = new Properties();
+	   try (InputStream resourceStream = loader.getResourceAsStream("application.properties")) {
+	       properties.load(resourceStream);
+	   } catch (IOException e) {
+	       e.printStackTrace();
+	   }
+	   
 		SpringApplication.run(TweetanalyticsApplication.class, args);
 	}
 

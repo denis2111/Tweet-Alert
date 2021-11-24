@@ -5,8 +5,6 @@ import json
 from PIL import Image
 import requests
 
-import tensorflow as tf
-
 
 app = Flask(__name__)
 

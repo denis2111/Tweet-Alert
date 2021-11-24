@@ -38,7 +38,16 @@ public class ImageClassifierClient extends ClassifierClient{
     public LocalizedResponse classify(TweetReq tweetReq) {
         String response = "";
         try {
-            URL url = new URL("http://localhost:5000/classify");
+            String imgHost = System.getenv("IMAGE_MODULE_HOST");
+            URL url;
+            if (imgHost == null)
+            {
+               url = new URL("http://localhost:5000/classify");
+            }
+            else
+            {
+               url = new URL(imgHost);
+            }
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json");

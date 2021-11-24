@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 
 public class AnalyticsClient {
     private static final Logger LOG = Logger.getLogger(ImageClassifierClient.class.getName());
-    private static final String ANALYTICS_URL = "http://localhost:5000/";
+    private static final String ANALYTICS_URL = System.getenv("ANALYTICS_MODULE_HOST");
     private static AnalyticsClient analyticsClient = null;
 
     private AnalyticsClient() { }
