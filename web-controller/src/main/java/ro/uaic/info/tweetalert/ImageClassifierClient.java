@@ -42,12 +42,13 @@ public class ImageClassifierClient extends ClassifierClient{
             URL url;
             if (imgHost == null)
             {
-               url = new URL("http://localhost:5000/classify");
+               url = new URL("http://localhost:8103/classify");
             }
             else
             {
                url = new URL(imgHost);
             }
+            System.err.println(url.toString());
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json");

@@ -44,7 +44,16 @@ public class NLPClassifierClient extends ClassifierClient{
 
         String response = "";
         try {
-            URL url = new URL("http://localhost:5000/classify");
+            String nlpHost = System.getenv("NLP_MODULE_HOST");
+            URL url;
+            if (nlpHost == null)
+            {
+               url = new URL("http://localhost:8102/classify");
+            }
+            else
+            {
+               url = new URL(nlpHost);
+            }
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json");
@@ -75,7 +84,7 @@ public class NLPClassifierClient extends ClassifierClient{
                 response = responseBuilder.toString();
             }
         } catch (IOException e) {
-            LOG.severe(String.format("Error on connecting to image module: %s", e.getMessage()));
+            LOG.severe(String.format("Error on connecting to NLP module: %s", e.getMessage()));
         }
 
         JSONObject responseJSON = new JSONObject(response);

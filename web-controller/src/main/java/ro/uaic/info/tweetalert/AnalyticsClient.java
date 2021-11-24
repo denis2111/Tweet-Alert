@@ -22,11 +22,7 @@ import java.util.logging.Logger;
 
 public class AnalyticsClient {
     private static final Logger LOG = Logger.getLogger(ImageClassifierClient.class.getName());
-<<<<<<< HEAD
-    private static final String ANALYTICS_URL = System.getenv("ANALYTICS_MODULE_HOST");
-=======
-    private static final String ANALYTICS_URL = "http://localhost:8089/api/v1/tweets";
->>>>>>> 0d0bdaf71d9b8531d358475a5812ed4d2596b55b
+    private static final String ANALYTICS_URL = System.getenv("ANALYTICS_MODULE_HOST") != null ? System.getenv("ANALYTICS_MODULE_HOST") + "/api/v1/tweets" : "http://localhost:8089/api/v1/tweets";
     private static AnalyticsClient analyticsClient = null;
 
     private AnalyticsClient() { }

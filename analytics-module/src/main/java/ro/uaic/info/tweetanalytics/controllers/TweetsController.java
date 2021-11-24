@@ -74,7 +74,7 @@ public class TweetsController {
         tweet1.setHash(TweetHashHandler.generateHashForTweet(tweet.getTweet()));
 
         Tweet tweet2 = tweetsService.createTweet(tweet1);
-        logger.info("The tweet with the id " +  tweet2.getId() + " was created");
+        logger.info("The tweet with the id " +  tweet2.getHash() + " was created");
         return tweet1;
     }
 
@@ -108,7 +108,7 @@ public class TweetsController {
 //                                 @RequestHeader(name = "Authorization") String token
     ) {
         Tweet tweet1 = tweetsService.createTweet(tweet);
-        logger.info("The tweet with the id " +  tweet1.getId() + " was created");
+        logger.info("The tweet with the id " +  tweet1.getHash() + " was created");
         return tweet1;
     }
 
@@ -128,7 +128,7 @@ public class TweetsController {
         if (tweet.getText() != null) {
             tweet1.setText(tweet.getText());
         }
-        logger.info("The subject with the id " +  tweet1.getId() + " was updated");
+        logger.info("The subject with the id " +  tweet1.getHash() + " was updated");
         return tweetsService.updateById(tweet1);
     }
 
@@ -144,7 +144,7 @@ public class TweetsController {
             logger.warn("Tweet not found");
             throw new NotFoundException("Tweet " + id + " not found");
         }
-        logger.info("The tweet with the id " +  tweet.getId() + " was deleted");
+        logger.info("The tweet with the id " +  tweet.getHash() + " was deleted");
         return null;
     }
 
@@ -190,7 +190,7 @@ public class TweetsController {
         List<Feedback> feedbackList1 = new ArrayList<>();
         feedbackList.stream().forEach(x -> feedbackList1.add(modelMapper.map(x, Feedback.class)));
         feedbackList1.stream()
-                .forEach(x -> x.setTweetId(tweet.getId()));
+                .forEach(x -> x.setTweetId(tweet.getHash()));
         tweet.getFeedbackList().addAll(feedbackList1);
         logger.info("Create new questions for subject " + id);
         return tweetsService.updateById(tweet).getFeedbackList();

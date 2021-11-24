@@ -42,10 +42,10 @@ public class TweetanalyticsApplication {
 	ApplicationRunner applicationRunner(TweetsRepository tweetsRepository, FeedbackRepository feedbackRepository){
 		return args -> {
 			
-			Feedback feedback1 = new Feedback("fire", 0);
-			Feedback feedback2 = new Feedback("flood", 0);
-			Feedback feedback3 = new Feedback("dunno", 0);
-			Feedback feedback4 = new Feedback("fire", 0);
+			Feedback feedback1 = new Feedback("fire", "0");
+			Feedback feedback2 = new Feedback("flood", "0");
+			Feedback feedback3 = new Feedback("dunno", "0");
+			Feedback feedback4 = new Feedback("fire", "0");
 			feedbackRepository.save(feedback1);
 			feedbackRepository.save(feedback2);
 			feedbackRepository.save(feedback3);

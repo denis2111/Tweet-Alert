@@ -48,7 +48,7 @@ public class TweetsService {
     }
 
     public Tweet updateById(Tweet tweet) {
-        logger.info("Tweet " + tweet.getId() + " was updated in the repository");
+        logger.info("Tweet " + tweet.getHash() + " was updated in the repository");
         return repository.save(tweet);
     }
 

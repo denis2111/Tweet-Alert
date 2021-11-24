@@ -1,4 +1,4 @@
-package ro.uaic.info.tweetalert.aop;
+package mop;
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.*;
@@ -32,9 +32,19 @@ public aspect mopMonitorAspect implements com.runtimeverification.rvmonitor.java
 	static Condition mop_MOPLock_cond = mop_MOPLock.newCondition();
 
 	pointcut MOP_CommonPointCut() : !within(com.runtimeverification.rvmonitor.java.rt.RVMObject+) && !adviceexecution() && BaseAspect.notwithin();
-	pointcut TweetClient_controller(TweetalertApplication x) : (call(* ro.uaic.info.tweetalert.TweetalertApplication.*(..)) && target(x)) && MOP_CommonPointCut();
-	before (TweetalertApplication x) : TweetClient_controller(x) {
-		mopRuntimeMonitor.controllerEvent(x);
+	pointcut TweetClient_client() : (call(* ImageClassifierClient.*(..)) || call(* NLPClassifierClient.*(..))) && MOP_CommonPointCut();
+	before () : TweetClient_client() {
+		mopRuntimeMonitor.clientEvent();
+	}
+
+	pointcut TweetClient_service() : (call(* WebServiceImpl.classify(..))) && MOP_CommonPointCut();
+	before () : TweetClient_service() {
+		mopRuntimeMonitor.serviceEvent();
+	}
+
+	pointcut TweetClient_controller() : (call(* TweetalertApplication.*(..))) && MOP_CommonPointCut();
+	before () : TweetClient_controller() {
+		mopRuntimeMonitor.controllerEvent();
 	}
 
 }

@@ -64,6 +64,6 @@ public class WebServiceImpl implements WebService {
 
     private LocalizedResponse chooseBestLocalizedResponse(LocalizedResponse localizedResponseNLP, LocalizedResponse localizedResponse) {
         // TODO implement bestLocalizedResponse
-        return localizedResponseNLP;
+        return localizedResponse;
     }
 }

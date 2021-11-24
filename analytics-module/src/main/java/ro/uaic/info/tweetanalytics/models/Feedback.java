@@ -26,10 +26,10 @@ public class Feedback {
     @ApiModelProperty(notes = "The tweet it belongs to")
     @JsonIgnore
     @Field
-    private int tweetId;
+    private String tweetId;
 
 
-    public Feedback(String text, int tweetId) {
+    public Feedback(String text, String tweetId) {
         this.text = text;
         this.tweetId = tweetId;
     }
@@ -50,11 +50,11 @@ public class Feedback {
 		this.text = text;
 	}
 
-	public int getTweetId() {
+	public String getTweetId() {
 		return tweetId;
 	}
 
-	public void setTweetId(int tweetId) {
+	public void setTweetId(String tweetId) {
 		this.tweetId = tweetId;
 	}
 

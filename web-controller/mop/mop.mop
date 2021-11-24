@@ -1,13 +1,15 @@
-package ro.uaic.info.tweetalert.aop;
+package mop;
 
 import java.io.*;
 import java.util.*;
 suffix TweetClient() {
-        event controller before() : call(* ro.uaic.info.tweetalert.TweetalertApplication.*(..)) {}
+        event controller before() : call(* TweetalertApplication.*(..)) {}
+        event service before() : call(* WebServiceImpl.classify(..)) {}
+        event client before() : call(* ImageClassifierClient.*(..)) || call(* NLPClassifierClient.*(..)) {}
 
-        cfg : S -> controller
-@match {
-        System.err.println("Am apelat controller");
+        RF : S -> controller service+ client
+@fail {
+        System.err.println("A client was called without calling the service.");
         __RESET;
         }
 }

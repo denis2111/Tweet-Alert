@@ -17,17 +17,13 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Document(indexName="order")
+@Document(indexName="tweet")
 public class Tweet {
 
-    @ApiModelProperty(notes = "The id of a Tweet - unique")
-    @Id
-    @Field
-    private int id;
-
-	@ApiModelProperty(notes = "The hash of a tweet")
-	@Field
-	private String hash;
+	 @ApiModelProperty(notes = "The hash of a tweet")
+	 @Id
+	 @Field
+	 private String hash;
 
     @ApiModelProperty(notes = "The text of a tweet")
     @Field
@@ -53,16 +49,6 @@ public class Tweet {
     public Tweet(@NonNull String text) {
         this.text = text;
     }
-
-
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 
 	public String getText() {
