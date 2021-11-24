@@ -80,7 +80,22 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
 		</dependency>
+<<<<<<< HEAD
 		
+=======
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.9.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.9.7</version>
+		</dependency>
+>>>>>>> 0d0bdaf71d9b8531d358475a5812ed4d2596b55b
 	</dependencies>
 
 	<build>

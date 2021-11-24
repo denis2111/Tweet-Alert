@@ -25,9 +25,25 @@ public class Tweet {
     @Field
     private int id;
 
+	@ApiModelProperty(notes = "The hash of a tweet")
+	@Field
+	private String hash;
+
     @ApiModelProperty(notes = "The text of a tweet")
     @Field
     private String text;
+
+	@ApiModelProperty(notes = "The image of a tweet")
+	@Field
+	private String image;
+
+	@ApiModelProperty(notes = "The label of a tweet")
+	@Field
+	private String label;
+
+	@ApiModelProperty(notes = "The precision of verdict")
+	@Field
+	private float precision;
 
     @ApiModelProperty(notes = "The feedback for a tweet")
     @Field

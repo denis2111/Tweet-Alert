@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TweetsService {
@@ -69,5 +70,14 @@ public class TweetsService {
         }
         logger.info("The tweet with the id " +  id + " was not found in the repository");
         return null;
+    }
+
+    public Optional<Tweet> getTweetByHash(String hash) {
+        if (repository.findByHash(hash).isPresent()){
+            logger.info("The tweet with the hash " +  hash + " was returned from repository");
+            return Optional.of((Tweet)repository.findByHash(hash).get());
+        }
+        logger.info("The tweet with the hash " +  hash + " was not found in the repository");
+        return Optional.empty();
     }
 }
