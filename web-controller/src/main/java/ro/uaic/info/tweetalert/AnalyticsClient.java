@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 
 public class AnalyticsClient {
     private static final Logger LOG = Logger.getLogger(ImageClassifierClient.class.getName());
-    private static final String ANALYTICS_URL = "http://localhost:5000/";
+    private static final String ANALYTICS_URL = "http://localhost:8089/api/v1/tweets";
     private static AnalyticsClient analyticsClient = null;
 
     private AnalyticsClient() { }
@@ -39,6 +39,7 @@ public class AnalyticsClient {
      * Request json:
      * {
      *     image: "https://play-lh.googleusercontent.com/aFWiT2lTa9CYBpyPjfgfNHd0r5puwKRGj2rHpdPTNrz2N9LXgN_MbLjePd1OTc0E8Rl1"
+     *     text: "text a,b,c"
      * }
      * In the future we can make a copy for this image and use the link for the internal copy.
      *
@@ -48,14 +49,12 @@ public class AnalyticsClient {
      *     label: "FLOOD",
      *     precision: 0.87
      * }
-     * {
-     *     exists: false
-     * }
      * label name is from DisasterType
      * **/
-    public LocalizedResponse getImage(String image){
-        String responseBody = String.format("{\"image\": \"%s\"}", image);
-        String response = analyticsRequest("/getImage", responseBody, "POST");
+    public LocalizedResponse getCachedVerdict(TweetReq tweetReq){
+        String requestBody = String.format("{\"image\": \"%s\", \"text\": \"%s\"}", tweetReq.getImage(), tweetReq.getText());
+        LOG.info(String.format("Request: %s", requestBody));
+        String response = analyticsRequest("/getCachedTweet", requestBody, "POST");
         LOG.info(String.format("Response: %s", response));
 
         JSONObject responseJSON = new JSONObject(response);
@@ -70,42 +69,11 @@ public class AnalyticsClient {
     /**
      * Request json:
      * {
-     *     text: "text a,b,c"
-     * }
-     *
-     * Response json:
-     * {
-     *     exists: true,
-     *     label: "FLOOD",
-     *     precision: 0.87
-     * }
-     * {
-     *      exists: false
-     * }
-     * label name is from DisasterType
-     * **/
-    public LocalizedResponse getText(String text){
-        String responseBody = String.format("{\"text\": \"%s\"}", text);
-        String response = analyticsRequest("/getText", responseBody, "POST");
-        LOG.info(String.format("Response: %s", response));
-
-        JSONObject responseJSON = new JSONObject(response);
-
-        if (!responseJSON.getBoolean("exists")){
-            return null;
-        }
-
-        return new LocalizedResponse(responseJSON);
-    }
-
-    /**
-     * Request json:
-     * {
-     *     tweet{
+     *     tweet:{
      *          image: "https://play-lh.googleusercontent.com/aFWiT2lTa9CYBpyPjfgfNHd0r5puwKRGj2rHpdPTNrz2N9LXgN_MbLjePd1OTc0E8Rl1",
      *          text: "text a,b,c"
      *     },
-     *     response:{
+     *     verdict:{
      *         label: "FLOOD",
      *         precision: 0.87
      *     }
@@ -118,42 +86,12 @@ public class AnalyticsClient {
         String label = localizedResponse.getClassificationResponse().getClassificationLabel().toString();
         Float precision = localizedResponse.getClassificationResponse().getPrecision();
 
-
-        String responseBody = String.format("{\"tweet\": {\"image\": \"%s\", \"text\":, \"%s\"}, " +
-                "\"response\": {\"label\": \"%s\", \"precision\": \"%f\"}}", image, text, label, precision);
+        String responseBody = String.format("{\"tweet\": {\"image\": \"%s\", \"text\": \"%s\"}, " +
+                "\"verdict\": {\"label\": \"%s\", \"precision\": %f}}", image, text, label, precision);
+        LOG.info(responseBody);
         String response = analyticsRequest("/createTweet", responseBody, "POST");
 
         JSONObject responseJSON = new JSONObject(response);
-    }
-
-    /**
-     * Request json:
-     * {
-     *     image: "https://play-lh.googleusercontent.com/aFWiT2lTa9CYBpyPjfgfNHd0r5puwKRGj2rHpdPTNrz2N9LXgN_MbLjePd1OTc0E8Rl1",
-     *     response:{
-     *         label: "FLOOD",
-     *         precision: 0.87
-     *     }
-     * }
-     * label name is from DisasterType
-     * **/
-    public void persistImage(String image, LocalizedResponse localizedResponse){
-
-    }
-
-    /**
-     * Request json:
-     * {
-     *     text: "text a,b,c",
-     *     response:{
-     *         label: "FLOOD",
-     *         precision: 0.87
-     *     }
-     * }
-     * label name is from DisasterType
-     * **/
-    public void persistText(String text, LocalizedResponse localizedResponse){
-
     }
 
     public String analyticsRequest(String path, String requestBody, String method) {
@@ -163,6 +101,10 @@ public class AnalyticsClient {
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod(method);
             con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Accept", "*/*");
+            con.setRequestProperty("Accept-Encoding", "*");
+            con.setRequestProperty("Accept-Language", "*");
+
             con.setConnectTimeout(5000);
 
             con.setDoOutput(true);
@@ -173,7 +115,7 @@ public class AnalyticsClient {
             }
 
             int status = con.getResponseCode();
-            if (status != 200){
+            if (status != 200 && status!= 201) {
                 String message = con.getResponseMessage();
                 LOG.warning(String.format("Status: %d, message: %s", status, message));
                 throw HttpClientErrorException.create(HttpStatus.valueOf(status), message, HttpHeaders.EMPTY, new byte[0], Charset.defaultCharset());

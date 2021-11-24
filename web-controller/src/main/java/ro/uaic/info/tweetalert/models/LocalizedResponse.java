@@ -1,9 +1,11 @@
 package ro.uaic.info.tweetalert.models;
 
 import lombok.Data;
+import lombok.ToString;
 import org.json.JSONObject;
 
 @Data
+@ToString
 public class LocalizedResponse implements ClassifyResponse{
     ClassificationResponse classificationResponse;
     String location;

@@ -30,20 +30,16 @@ public class TweetanalyticsApplication {
 	ApplicationRunner applicationRunner(TweetsRepository tweetsRepository, FeedbackRepository feedbackRepository){
 		return args -> {
 			
-			Feedback feedback = new Feedback("BRAVO", 0);
 			Feedback feedback1 = new Feedback("fire", 0);
 			Feedback feedback2 = new Feedback("flood", 0);
 			Feedback feedback3 = new Feedback("dunno", 0);
 			Feedback feedback4 = new Feedback("fire", 0);
-			Feedback feedback5 = new Feedback("??", 0);
-			feedbackRepository.save(feedback);
 			feedbackRepository.save(feedback1);
 			feedbackRepository.save(feedback2);
 			feedbackRepository.save(feedback3);
 			feedbackRepository.save(feedback4);
-			feedbackRepository.save(feedback5);
 			Tweet tweet =  new Tweet("Alerta");
-			tweet.setFeedbackList(List.of(feedback, feedback1, feedback2, feedback3, feedback4));
+			tweet.setFeedbackList(List.of(feedback1, feedback2, feedback3, feedback4));
 			tweetsRepository.save(tweet);
 
 

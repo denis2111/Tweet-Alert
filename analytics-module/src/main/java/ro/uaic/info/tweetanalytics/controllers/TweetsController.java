@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.uaic.info.tweetanalytics.DTOs.FeedbackDTO;
+import ro.uaic.info.tweetanalytics.DTOs.TweetCachedResponseDTO;
+import ro.uaic.info.tweetanalytics.DTOs.TweetDTO;
+import ro.uaic.info.tweetanalytics.DTOs.TweetPersistDTO;
 import ro.uaic.info.tweetanalytics.business.TweetsService;
 import ro.uaic.info.tweetanalytics.models.Feedback;
 import ro.uaic.info.tweetanalytics.models.Tweet;
@@ -21,6 +24,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
+import ro.uaic.info.tweetanalytics.utils.TweetHashHandler;
 
 @CrossOrigin
 @RestController
@@ -37,10 +41,48 @@ public class TweetsController {
         this.modelMapper = modelMapper;
     }
 
+    @ApiOperation(value = "Add a tweet", response = TweetCachedResponseDTO.class)
+    @PostMapping("/getCachedTweet")
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public TweetCachedResponseDTO getCachedVerdict(@RequestBody TweetDTO tweet
+//                                 @RequestHeader(name = "Authorization") String token
+    ) {
+        String hash = TweetHashHandler.generateHashForTweet(tweet);
+        Optional<Tweet> tweet1 = tweetsService.getTweetByHash(hash);
+        if (tweet1.isPresent()) {
+            logger.info("The tweet with the hash " +  tweet1.get().getHash() + " was found");
+            TweetCachedResponseDTO response = new TweetCachedResponseDTO(true, tweet1.get().getLabel(), tweet1.get().getPrecision());
+            return response;
+        }
+        TweetCachedResponseDTO response = new TweetCachedResponseDTO(false, null, -1) ;
+        logger.info("The tweet with the hash " +  hash + " was NOT found");
+        logger.info(response.toString());
+        return response;
+    }
+
+    @ApiOperation(value = "Add a tweet", response = Tweet.class)
+    @PostMapping("/createTweet")
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public Tweet persistTweet(@RequestBody TweetPersistDTO tweet
+//                                 @RequestHeader(name = "Authorization") String token
+    ) {
+        Tweet tweet1 = new Tweet();
+        tweet1.setText(tweet.getTweet().getText());
+        tweet1.setImage(tweet.getTweet().getImage());
+        tweet1.setLabel(tweet.getVerdict().getLabel());
+        tweet1.setPrecision(tweet.getVerdict().getPrecision());
+        tweet1.setHash(TweetHashHandler.generateHashForTweet(tweet.getTweet()));
+
+        Tweet tweet2 = tweetsService.createTweet(tweet1);
+        logger.info("The tweet with the id " +  tweet2.getId() + " was created");
+        return tweet1;
+    }
+
+
     @ApiOperation(value = "View a list of available tweets", response = List.class)
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Tweet> getSubjects() {
+    public List<Tweet> getTweets() {
         List<Tweet> tweets = tweetsService.getAllTweets();
         logger.info("Get all the tweets");
         return tweets;
