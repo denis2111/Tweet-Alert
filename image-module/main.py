@@ -1,10 +1,9 @@
 from flask import Flask, request
-from train import train
-from predict import predict
+from network import train
 import json
 from PIL import Image
 import requests
-
+import network
 
 app = Flask(__name__)
 
@@ -28,15 +27,15 @@ def classify():
 
 			image = Image.open(requests.get(url, stream=True).raw)
 
-		print(image)
 	else:
 		"Panic"
 
-	label, precision = predict(image)
+	model = network.get_trained_model()
+	label, precision = network.predict(model, image)
 
 	response = {
 		"label": label,
-		"precision": precision
+		"precision": str(precision)
 	}
 
 	return json.dumps(response)
