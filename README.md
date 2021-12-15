@@ -48,3 +48,7 @@
 <b>BPMN</b>
  * Ramona, Alex -based on feedback process
  * Andrei, Denis - based on NLP module
+
+
+<b>Research paper</b>
+https://www.overleaf.com/2948778584wbvhpmtyxdrx
