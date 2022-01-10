@@ -50,7 +50,7 @@ public class WebServiceImpl implements WebService {
                {
                    localizedResponseImage = Optional.of(imageClassifierClient.classify(tweetReq));
                    
-                   if (localizedResponseImage.isPresent())
+                   if (localizedResponseImage.isPresent())// && localizedResponseImage.get().getPrecision() > 0.9)
                    {
                       analyticsClient.persistTweet(tweetReq, localizedResponseImage.get());
                       return new ResponseEntity<>(localizedResponseImage.get(), HttpStatus.OK);
@@ -59,7 +59,7 @@ public class WebServiceImpl implements WebService {
             }
             
             analyticsClient.persistTweet(tweetReq, localizedResponseNLP);
-            return new ResponseEntity<>(localizedResponseImage.get(), HttpStatus.OK);
+            return new ResponseEntity<>(localizedResponseNLP, HttpStatus.OK);
 
         } catch (HttpClientErrorException.BadRequest e){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

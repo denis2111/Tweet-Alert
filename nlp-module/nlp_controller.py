@@ -4,7 +4,7 @@ from translator.translator import Translator
 
 class NLPController:
     def __init__(self) -> None:
-        self.translator = Translator.get_instance()
+        # self.translator = Translator.get_instance()
         self.binary_classifier = BinaryClassifier.get_instance()
 
     def get_prediction(self, tweet) -> (str, float):
