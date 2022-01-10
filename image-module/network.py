@@ -60,6 +60,7 @@ def train(model, train_set):
 def predict(model, image):
     image = smart_resize(image, (INPUT_SHAPE[0], INPUT_SHAPE[1]))
     img_array = img_to_array(image)
+    img_array = img_array / 255.0 
     img_array = expand_dims(img_array, 0)  # Create batch axis
 
     predictions = model.predict(img_array)

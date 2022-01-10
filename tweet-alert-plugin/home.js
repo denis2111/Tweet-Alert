@@ -26,28 +26,55 @@ function check(e)
       {
          imgSrc = imageTag.getAttribute("src");
       }
-      let prediction = predict(text, imgSrc);
-      switch (prediction)
-      {
-         case 0:
-            article.style.border = "thick solid #0000FF"; break;
-         case 1:
-            article.style.border = "thick solid #00FFFF"; break;
-         case 2:
-            article.style.border = "thick solid #00FF00"; break;
-         case 3:
-            article.style.border = "thick solid #FF0000"; break;
-      }
+      text = text.replace(/(\r\n|\n|\r)/gm, "");
+      text = text.replace(/["]+/g, '')
+      predict(text, imgSrc, (result) => {
+         switch (result)
+         {
+            case "DISASTER":
+               article.style.border = "thick solid #000000"; break; // negru
+            case "CYCLONE":
+               article.style.border = "thick solid #888888"; break; // gri
+            case "EARTHQUAKE":
+               article.style.border = "thick solid #00FF00"; break; // verde
+            case "FLOOD":
+               article.style.border = "thick solid #0000FF"; break; // albastru
+            case "WILDIFRE":
+               article.style.border = "thick solid #FF0000"; break; // rosu
+         }
+      });
    }
 }
 
-function predict(text, imgSrc)
+function predict(text, imgSrc, callback)
 {
    let hash = getHash(text, imgSrc);
    if (cache.has(hash)) return cache.get(hash);
-   let prediction = Math.floor(Math.random() * 5);
-   cache.set(hash, prediction);
-   return prediction;
+   data = {"text" : text, "image": imgSrc};
+   console.log(JSON.stringify(data));
+
+   const options = {
+      method: 'POST',
+      headers:{
+          'Access-Control-Allow-Headers': '*',
+          'Content-Type': 'application/json'
+      },
+   };
+
+   options.body = JSON.stringify(data);
+
+   fetch(`http://localhost:8080/api/v1/classify`, options)
+   .then(r => r.json())
+   .then(result => {
+      console.log(result.classificationResponse)
+      callback(result.classificationResponse.classificationLabel)
+   })
+   .catch(error => {
+      console.log("eroare: " + JSON.stringify(data))
+      console.log(error)
+   })
+   //let prediction = Math.floor(Math.random() * 5);
+   //cache.set(hash, prediction);
 }
 
 function getHash(text, imgSrc)

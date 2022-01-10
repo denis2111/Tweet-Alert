@@ -26,6 +26,7 @@ def classify():
 			url = data['image_path']
 
 			image = Image.open(requests.get(url, stream=True).raw)
+			image = image.convert("RGB")
 
 	else:
 		"Panic"

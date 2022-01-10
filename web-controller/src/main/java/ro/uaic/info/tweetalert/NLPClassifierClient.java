@@ -60,7 +60,7 @@ public class NLPClassifierClient extends ClassifierClient{
             con.setConnectTimeout(5000);
 
             con.setDoOutput(true);
-            String jsonInputString = String.format("{\"text\": \"%s\"}", tweetReq.getText());
+            String jsonInputString = String.format("{\"tweet_text\": \"%s\"}", tweetReq.getText());
 
             try(OutputStream os = con.getOutputStream()) {
                 byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);

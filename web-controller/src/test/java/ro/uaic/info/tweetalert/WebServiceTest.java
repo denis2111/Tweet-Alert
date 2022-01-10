@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class WebServiceTest {
 
-    /*@Autowired
+    @Autowired
     private WebService service;
 
     @Test
@@ -75,5 +75,5 @@ public class WebServiceTest {
         assertThat(localizedResponse.getPrecision()).isBetween(0f, 1f);
         assertThat(localizedResponse.getClassificationResponse()).isNotNull();
         assertThat(localizedResponse.getClassificationResponse().getClassificationLabel()).isNotNull();
-    }*/
+    }
 }

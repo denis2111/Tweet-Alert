@@ -1,4 +1,4 @@
-FROM python:3.9-slim-bullseye
+FROM tensorflow/tensorflow:latest
 ADD . /image-module
 WORKDIR /image-module
 RUN pip install -r requirements.txt

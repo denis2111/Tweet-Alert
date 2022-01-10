@@ -48,7 +48,7 @@ public class ImageClassifierClient extends ClassifierClient{
             {
                url = new URL(imgHost);
             }
-            System.err.println(url.toString());
+            
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json");

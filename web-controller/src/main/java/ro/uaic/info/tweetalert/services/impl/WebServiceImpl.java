@@ -1,6 +1,5 @@
 package ro.uaic.info.tweetalert.services.impl;
 
-import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -8,6 +7,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import ro.uaic.info.tweetalert.AnalyticsClient;
 import ro.uaic.info.tweetalert.ImageClassifierClient;
 import ro.uaic.info.tweetalert.NLPClassifierClient;
+import ro.uaic.info.tweetalert.models.DisasterType;
 import ro.uaic.info.tweetalert.models.LocalizedResponse;
 import ro.uaic.info.tweetalert.models.TweetReq;
 import ro.uaic.info.tweetalert.services.WebService;
@@ -34,7 +34,6 @@ public class WebServiceImpl implements WebService {
     public ResponseEntity<LocalizedResponse> classify(TweetReq tweetReq) {
         LocalizedResponse localizedResponseNLP;
         Optional<LocalizedResponse> localizedResponseImage = Optional.empty();
-        LocalizedResponse bestLocalizedResponse;
 
         try {
 
@@ -44,26 +43,26 @@ public class WebServiceImpl implements WebService {
                 return new ResponseEntity<>(localizedResponse, HttpStatus.OK);
             }
 
-            if (tweetReq.getImage() != null && !tweetReq.getImage().equals("")) {
-                localizedResponseImage = Optional.of(imageClassifierClient.classify(tweetReq));
-            }
-
             localizedResponseNLP = nlpClassifierClient.classify(tweetReq);
-            if (localizedResponseImage.isPresent()){
-                bestLocalizedResponse = chooseBestLocalizedResponse(localizedResponseNLP, localizedResponseImage.get());
-            } else {
-                bestLocalizedResponse = localizedResponseNLP;
+            if (localizedResponseNLP.getClassificationResponse().getClassificationLabel().equals(DisasterType.DISASTER))
+            {
+               if (tweetReq.getImage() != null && !tweetReq.getImage().trim().isEmpty()) 
+               {
+                   localizedResponseImage = Optional.of(imageClassifierClient.classify(tweetReq));
+                   
+                   if (localizedResponseImage.isPresent())
+                   {
+                      analyticsClient.persistTweet(tweetReq, localizedResponseImage.get());
+                      return new ResponseEntity<>(localizedResponseImage.get(), HttpStatus.OK);
+                   }
+               }
             }
-            analyticsClient.persistTweet(tweetReq, bestLocalizedResponse);
+            
+            analyticsClient.persistTweet(tweetReq, localizedResponseNLP);
+            return new ResponseEntity<>(localizedResponseImage.get(), HttpStatus.OK);
 
-            return new ResponseEntity<>(bestLocalizedResponse, HttpStatus.OK);
         } catch (HttpClientErrorException.BadRequest e){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
-    }
-
-    private LocalizedResponse chooseBestLocalizedResponse(LocalizedResponse localizedResponseNLP, LocalizedResponse localizedResponse) {
-        // TODO implement bestLocalizedResponse
-        return localizedResponse;
     }
 }

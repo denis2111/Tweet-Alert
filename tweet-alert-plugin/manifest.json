@@ -8,7 +8,14 @@
     "js": ["home.js"],
     "matches": ["https://twitter.com/*"]
   }],
-  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": [
+    "http://localhost/*"
+  ],
+  "permissions": [
+    "storage", 
+    "activeTab", 
+    "scripting"
+  ],
   "action": {
     "default_icon": {
       "16": "/images/get_started16.png",
