@@ -11,6 +11,7 @@
 <h3>Coordinator:</h3> 
 <ul>
 	<li> Conf. dr. Breaban Mihaela </li>
+	<li> Conf. dr. Trandabat Diana </li>
 </ul>
 
 <h3>Contact information:</h3>
